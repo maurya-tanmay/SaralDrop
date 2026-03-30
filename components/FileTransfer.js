@@ -126,14 +126,45 @@ function FileTransfer() {
         
         // Simulate finding file
         setTimeout(() => {
-            // Simulated fake success
-            setFoundFile({
-                name: `Shared_File_${codeString}.zip`,
-                size: Math.floor(Math.random() * 50000000) + 1000000,
-                type: 'application/zip'
-            });
+            if (shareCode && codeString === shareCode && files.length > 0) {
+                // Exact match from current session's upload
+                setFoundFile({
+                    name: files[0].name,
+                    size: files[0].size,
+                    type: files[0].type,
+                    fileObj: files[0]
+                });
+            } else {
+                // Simulated fake success for random codes
+                setFoundFile({
+                    name: `Shared_File_${codeString}.zip`,
+                    size: 1048576 * 5, // 5MB fixed mock size
+                    type: 'application/zip'
+                });
+            }
             setReceiveStatus('found');
         }, 1500);
+    };
+
+    const handleDownload = () => {
+        if (!foundFile) return;
+        
+        let url;
+        if (foundFile.fileObj) {
+            url = URL.createObjectURL(foundFile.fileObj);
+        } else {
+            // Fallback for mock files
+            const blob = new Blob(["This is a simulated downloaded file. Upload a real file in the 'Send File' tab to test the actual transfer."], { type: 'text/plain' });
+            url = URL.createObjectURL(blob);
+        }
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = foundFile.name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     };
 
     const resetReceive = () => {
