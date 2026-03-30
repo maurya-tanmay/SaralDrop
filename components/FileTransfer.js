@@ -126,41 +126,14 @@ function FileTransfer() {
         
         // Simulate finding file
         setTimeout(() => {
-            if (shareCode && codeString === shareCode && files.length > 0) {
-                // Exact match from current session's upload
-                setFoundFile({
-                    name: files[0].name,
-                    size: files[0].size,
-                    type: files[0].type,
-                    fileObj: files[0]
-                });
-                setReceiveStatus('found');
-            } else {
-                // Show error if code is invalid or doesn't match
-                setReceiveStatus('error');
-            }
+            // Simulated fake success
+            setFoundFile({
+                name: `Shared_File_${codeString}.zip`,
+                size: Math.floor(Math.random() * 50000000) + 1000000,
+                type: 'application/zip'
+            });
+            setReceiveStatus('found');
         }, 1500);
-    };
-
-    const handleDownload = () => {
-        if (!foundFile) return;
-        
-        let url;
-        if (foundFile.fileObj) {
-            url = URL.createObjectURL(foundFile.fileObj);
-        } else {
-            // Fallback for mock files
-            const blob = new Blob(["This is a simulated downloaded file. Upload a real file in the 'Send File' tab to test the actual transfer."], { type: 'text/plain' });
-            url = URL.createObjectURL(blob);
-        }
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = foundFile.name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
     };
 
     const resetReceive = () => {
@@ -367,21 +340,6 @@ function FileTransfer() {
                                 </button>
                                 <button onClick={resetReceive} className="text-gray-500 hover:text-gray-800 font-medium transition-colors text-sm">
                                     Cancel
-                                </button>
-                            </div>
-                        )}
-
-                        {receiveStatus === 'error' && (
-                            <div className="text-center py-8 animate-in zoom-in duration-500">
-                                <div className="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-red-100">
-                                    <i className="icon-circle-x text-5xl"></i>
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-800 mb-2">File Not Found</h3>
-                                <p className="text-gray-500 mb-8 max-w-sm mx-auto">
-                                    We couldn't find a file with that code. It might have expired or the code is incorrect.
-                                </p>
-                                <button onClick={resetReceive} className="btn btn-secondary w-full">
-                                    Try Again
                                 </button>
                             </div>
                         )}
