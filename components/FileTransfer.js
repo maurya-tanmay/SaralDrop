@@ -134,15 +134,11 @@ function FileTransfer() {
                     type: files[0].type,
                     fileObj: files[0]
                 });
+                setReceiveStatus('found');
             } else {
-                // Simulated fake success for random codes
-                setFoundFile({
-                    name: `Shared_File_${codeString}.zip`,
-                    size: 1048576 * 5, // 5MB fixed mock size
-                    type: 'application/zip'
-                });
+                // Show error if code is invalid or doesn't match
+                setReceiveStatus('error');
             }
-            setReceiveStatus('found');
         }, 1500);
     };
 
