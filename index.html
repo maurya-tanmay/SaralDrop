@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaralDrop - Share Files Instantly</title>
+    <meta name="description" content="Share and receive any type of file quickly and securely.">
+    <meta name="keywords" content="file share, file transfer, send files, large files">
+    <meta property="og:title" content="SaralDrop - Share Files Instantly">
+    <meta property="og:description" content="Share and receive any type of file quickly and securely.">
+    <meta name="twitter:title" content="SaralDrop - Share Files Instantly">
+    <meta name="twitter:description" content="Share and receive any type of file quickly and securely.">
+
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/react@18/umd/react.production.min.js"></script>
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://resource.trickle.so/vendor_lib/unpkg/lucide-static@0.516.0/font/lucide.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            pink: '#FF4E8D',
+                            purple: '#8A2BE2',
+                            yellow: '#FFD700',
+                            teal: '#00CED1',
+                            orange: '#FF8C00'
+                        }
+                    },
+                    boxShadow: {
+                        'colorful': '0 10px 25px -5px rgba(138, 43, 226, 0.3), 0 8px 10px -6px rgba(255, 78, 141, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+    @layer base {
+        body {
+            @apply font-sans text-gray-800 bg-slate-50 overflow-x-hidden;
+        }
+    }
+    @layer components {
+        .btn {
+            @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-transform duration-200 hover:scale-105 active:scale-95;
+        }
+        .btn-primary {
+            @apply text-white bg-gradient-to-r from-brand-purple to-brand-pink focus:ring-brand-purple shadow-colorful hover:shadow-lg;
+        }
+        .btn-secondary {
+            @apply text-brand-purple bg-white border-2 border-brand-purple hover:bg-purple-50 focus:ring-brand-purple;
+        }
+        .glass-panel {
+            @apply bg-white/80 backdrop-blur-md border border-white/50 shadow-xl rounded-3xl;
+        }
+    }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative selection:bg-brand-pink selection:text-white">
+    <div class="fixed inset-0 -z-10 bg-slate-50">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-brand-pink/20 blur-[100px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-brand-teal/20 blur-[100px]"></div>
+        <div class="absolute top-[40%] left-[60%] w-[30%] h-[30%] rounded-full bg-brand-yellow/20 blur-[100px]"></div>
+    </div>
+    <div id="root" class="flex-grow flex flex-col"></div>
+    <script type="text/babel" src="components/Header.js"></script>
+    <script type="text/babel" src="components/Footer.js"></script>
+    <script type="text/babel" src="components/FileTransfer.js"></script>
+    <script type="text/babel" src="app.js"></script>
+</body>
+</html>
